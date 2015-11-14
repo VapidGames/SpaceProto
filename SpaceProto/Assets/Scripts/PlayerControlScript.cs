@@ -55,6 +55,8 @@ public class PlayerControlScript : MonoBehaviour {
     public void ZeroVelocity()
     {
         playerBox.velocity = new Vector2(0, 0);
+        playerBox.angularVelocity = 0;
+        playerBox.rotation = 0;
     }
 
     public bool IsInAtmosphere()
