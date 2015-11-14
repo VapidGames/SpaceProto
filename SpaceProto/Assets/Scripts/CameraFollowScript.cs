@@ -32,6 +32,11 @@ public class CameraFollowScript : MonoBehaviour
         }
     }
 
+    public void SetInitialHeight(float initialY)
+    {
+        transform.position = new Vector3(transform.position.x, initialY, transform.position.z);
+    }
+
     void FixedCameraUpdate()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y + fixedCameraVelocity, transform.position.z);

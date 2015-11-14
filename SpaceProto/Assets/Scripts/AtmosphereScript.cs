@@ -5,6 +5,8 @@ public class AtmosphereScript : MonoBehaviour {
 
     PlayerControlScript playerScript;
 
+    public bool startingPlanet;
+
 	// Use this for initialization
 	void Start () {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControlScript>();
