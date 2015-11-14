@@ -7,6 +7,8 @@ public class PlayerControlScript : MonoBehaviour {
 
     bool alive;
 
+    bool inAtmosphere;
+
     [Range(0.0f, 20.0f)]
     public float torque;
 
@@ -18,6 +20,9 @@ public class PlayerControlScript : MonoBehaviour {
 
     [Range(0.1f, 10.0f)]
     public float maxSpeed;
+
+    [Range(10.0f, 400.0f)]
+    public float maxAngularVelocity;
 
     private ParticleSystem[] boosters;
 
@@ -42,8 +47,24 @@ public class PlayerControlScript : MonoBehaviour {
         {
             TakePlayerInput();
             CheapVelocityCap();
+            AngularVelocityCap();
         }
 	}
+
+    public bool IsInAtmosphere()
+    {
+        return inAtmosphere;
+    }
+
+    public void EnterAtmosphere()
+    {
+        inAtmosphere = true;
+    }
+
+    public void LeaveAtmosphere()
+    {
+        inAtmosphere = false;
+    }
 
     void StartTurningLeft()
     {
@@ -125,6 +146,19 @@ public class PlayerControlScript : MonoBehaviour {
         if (currentSpeed > maxSpeed)
         {
             playerBox.velocity = playerBox.velocity.normalized * maxSpeed;
+        }
+    }
+
+    void AngularVelocityCap()
+    {
+        float currentAngularVelocity = playerBox.angularVelocity;
+        if (currentAngularVelocity > maxAngularVelocity)
+        {
+            playerBox.angularVelocity = maxAngularVelocity;
+        }
+        if (currentAngularVelocity < -1 * maxAngularVelocity)
+        {
+            playerBox.angularVelocity = -1 * maxAngularVelocity;
         }
     }
 

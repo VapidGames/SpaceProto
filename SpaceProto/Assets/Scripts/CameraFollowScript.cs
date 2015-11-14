@@ -3,8 +3,9 @@ using System.Collections;
 
 public class CameraFollowScript : MonoBehaviour
 {
-
     Rigidbody2D playerObject;
+
+    PlayerControlScript playerScript;
 
     [Range(0.0f, 5.0f)]
     public float playerVelocityInheritance;
@@ -18,13 +19,17 @@ public class CameraFollowScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>(); ;
+        playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControlScript>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        FollowCameraUpdate();
+        if (!playerScript.IsInAtmosphere())
+        {
+            FollowCameraUpdate();
+        }
     }
 
     void FixedCameraUpdate()
