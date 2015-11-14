@@ -188,7 +188,6 @@ public class PlayerControlScript : MonoBehaviour {
         playerBox.AddForce(playerBox.transform.up * acceleration);
         rotatingLeft = false;
         rotatingRight = false;
-
     }
 
     void TakePlayerInput()
@@ -209,6 +208,11 @@ public class PlayerControlScript : MonoBehaviour {
     {
         if (Input.touchCount != 0)
         {
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                thrusting = false;
+                StopThrusters();
+            }
             if (Input.touchCount == 2)
             {
                 Thrust();
@@ -221,31 +225,11 @@ public class PlayerControlScript : MonoBehaviour {
             {
                 RotateRight();
             }
-
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                thrusting = false;
-                StopThrusters();
-            }
-
         }
     }
 
     void MouseControls()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            rotatingLeft = false;
-            thrusting = false;
-            StopThrusters();
-        }
-        if (Input.GetMouseButtonUp(1))
-        {
-            rotatingRight = false;
-            thrusting = false;
-            StopThrusters();
-        }
-
         if (Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
             RotateLeft();
@@ -257,6 +241,19 @@ public class PlayerControlScript : MonoBehaviour {
         else if (Input.GetMouseButton(0) && Input.GetMouseButton(1))
         {
             Thrust();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            rotatingLeft = false;
+            thrusting = false;
+            StopThrusters();
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            rotatingRight = false;
+            thrusting = false;
+            StopThrusters();
         }
     }
 }
