@@ -16,6 +16,9 @@ public class PlayerControlScript : MonoBehaviour {
     [Range(0.0001f, 0.1f)]
     public float accelerationBurstInverse;
 
+    [Range(0.1f, 10.0f)]
+    public float maxSpeed;
+
     private ParticleSystem[] boosters;
 
     private bool rotatingLeft = false;
@@ -38,6 +41,7 @@ public class PlayerControlScript : MonoBehaviour {
 	    if (alive)
         {
             TakePlayerInput();
+            CheapVelocityCap();
         }
 	}
 
@@ -76,6 +80,9 @@ public class PlayerControlScript : MonoBehaviour {
         {
             boosters[i].Stop();
         }
+        thrusting = false;
+        rotatingLeft = false;
+        rotatingRight = false;
     }
 
     void RotateLeft()
@@ -98,6 +105,29 @@ public class PlayerControlScript : MonoBehaviour {
         playerBox.AddTorque(-torque);
     }
 
+    void Deccelerate()
+    {
+
+        float currentSpeed = playerBox.velocity.magnitude;
+        if (currentSpeed > maxSpeed)
+        {
+            // apply correcting force in opposite direction
+
+            // strength of force: magnitude - maxSpeed
+            // direction of force: opposite to rigidbody velocity
+            playerBox.AddForce(playerBox.velocity.normalized * -1 * (currentSpeed - maxSpeed));
+        }
+    }
+
+    void CheapVelocityCap()
+    {
+        float currentSpeed = playerBox.velocity.magnitude;
+        if (currentSpeed > maxSpeed)
+        {
+            playerBox.velocity = playerBox.velocity.normalized * maxSpeed;
+        }
+    }
+
     void Thrust()
     {
         if (!thrusting)
@@ -109,9 +139,9 @@ public class PlayerControlScript : MonoBehaviour {
         float timeSinceStartedThrusting = Time.time - thrustingStart + accelerationBurstInverse;
 
         playerBox.AddForce(playerBox.transform.up * acceleration * Mathf.Max((1/timeSinceStartedThrusting), 1));
-
         rotatingLeft = false;
         rotatingRight = false;
+
     }
 
     void TakePlayerInput()
@@ -144,6 +174,13 @@ public class PlayerControlScript : MonoBehaviour {
             {
                 RotateRight();
             }
+
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                thrusting = false;
+                StopThrusters();
+            }
+
         }
     }
 
