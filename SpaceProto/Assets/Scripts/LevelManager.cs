@@ -43,6 +43,26 @@ public class LevelManager : MonoBehaviour {
         leveldata[0].enemyShips = 0;
         leveldata[0].levelLength = 100;
 
+        leveldata[1].mediumAsteroids = 10;
+        leveldata[1].largeAsteroids = 5;
+        leveldata[1].enemyShips = 0;
+        leveldata[1].levelLength = 100;
+
+        leveldata[2].mediumAsteroids = 10;
+        leveldata[2].largeAsteroids = 5;
+        leveldata[2].enemyShips = 0;
+        leveldata[2].levelLength = 100;
+
+        leveldata[3].mediumAsteroids = 10;
+        leveldata[3].largeAsteroids = 5;
+        leveldata[3].enemyShips = 0;
+        leveldata[3].levelLength = 100;
+
+        leveldata[4].mediumAsteroids = 10;
+        leveldata[4].largeAsteroids = 5;
+        leveldata[4].enemyShips = 0;
+        leveldata[4].levelLength = 100;
+
         persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
 
         currentLevel = persistentData.currentLevelID - 1;
@@ -56,7 +76,7 @@ public class LevelManager : MonoBehaviour {
 
     private void BuildLevel()
     {
-        if (currentLevel == 0)
+        if (currentLevel == -1)
         {
             Application.LoadLevel("Menu");
         }
@@ -118,7 +138,7 @@ public class LevelManager : MonoBehaviour {
     {
         DestroyLevel();
         if (currentLevel == levelCount - 1)
-            currentLevel = 0;
+            currentLevel = -1;
         BuildLevel();
     }
 }
