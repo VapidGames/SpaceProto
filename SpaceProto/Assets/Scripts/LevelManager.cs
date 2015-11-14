@@ -142,6 +142,7 @@ public class LevelManager : MonoBehaviour {
         }
 
         //move current planet and ship back to (0, 0, 0)
+        Destroy(planets[0]);
         planets[0] = planets[1];
         planets[1] = null;
 
