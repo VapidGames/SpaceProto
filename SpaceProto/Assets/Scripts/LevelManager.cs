@@ -11,7 +11,8 @@ public class LevelManager : MonoBehaviour {
 
     public PersistentData persistentData;
 
-    public GameObject asteroid;
+    public GameObject mediumAsteroid;
+    public GameObject largeAsteroid;
     public GameObject enemyShip;
     public GameObject planet;
 
@@ -23,7 +24,8 @@ public class LevelManager : MonoBehaviour {
             leveldata[i] = new LevelScript();
         }
 
-        leveldata[0].asteroids = 20;
+        leveldata[0].mediumAsteroids = 20;
+        leveldata[0].largeAsteroids = 5;
         leveldata[0].enemyShips = 0;
         leveldata[0].levelLength = 100;
 
@@ -44,19 +46,29 @@ public class LevelManager : MonoBehaviour {
         float levelWidth = 20.0f;
         float levelHeight = leveldata[currentLevel].levelLength;
 
-        int asteroids = leveldata[currentLevel].asteroids;
+        int mediumAsteroids = leveldata[currentLevel].mediumAsteroids;
+        int largeAsteroids = leveldata[currentLevel].largeAsteroids;
         int enemyShips = leveldata[currentLevel].enemyShips;
 
-        for (int i = 0; i < asteroids; ++i)
+        for (int i = 0; i < mediumAsteroids; ++i)
         {
             float randX = Random.Range(-levelWidth / 2, levelWidth / 2);
             float randY = Random.Range(0, levelHeight);
 
-            Instantiate(asteroid, new Vector3(randX, randY, 0), transform.rotation);
+            GameObject medium = (GameObject)Instantiate(mediumAsteroid, new Vector3(randX, randY, 0), transform.rotation);
+            medium.GetComponent<AsteroidScript>().SetVelocity(new Vector2(5, 0));
+        }
+
+        for (int i = 0; i < largeAsteroids; ++i)
+        {
+            float randX = Random.Range(-levelWidth / 2, levelWidth / 2);
+            float randY = Random.Range(0, levelHeight);
+
+            GameObject large = (GameObject)Instantiate(largeAsteroid, new Vector3(randX, randY, 0), transform.rotation);
+            large.GetComponent<AsteroidScript>().SetVelocity(new Vector2(-5, 0));
         }
 
         Instantiate(planet, new Vector3(0, levelHeight + 64.0f, 0), transform.rotation);
-
 
     }
 

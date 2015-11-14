@@ -4,7 +4,8 @@ using System.Collections;
 public class LevelScript
 {
 
-    public int asteroids;
+    public int mediumAsteroids;
+    public int largeAsteroids;
     public int enemyShips;
 
     [Range(100, 500)]
