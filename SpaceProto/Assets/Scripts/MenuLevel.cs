@@ -16,8 +16,8 @@ public class MenuLevel : MonoBehaviour {
 
     public PersistentData persistentData;
 
-	void Start () {
-
+    void Awake()
+    {
         renderer = transform.GetComponent<Renderer>();
 
         if (unlocked)
@@ -28,10 +28,17 @@ public class MenuLevel : MonoBehaviour {
         {
             renderer.material = lockedMat;
         }
+    }
 
+	void Start () 
+    {
         if (GameObject.Find("PersistentData") != null)
             persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
 
+        if (persistentData.levelUnlockedStatus[levelID - 1] == 0)
+            unlocked = false;
+        else
+            unlocked = true;
 	}
 
     public void Hit()

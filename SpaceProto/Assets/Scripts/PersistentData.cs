@@ -8,17 +8,13 @@ public class PersistentData : MonoBehaviour {
     //0 is menu
     public int currentLevelID = 0;
 
-	void Start () {
-
+    void Awake()
+    {
         levelUnlockedStatus = new int[5];
+        Load();
 
         DontDestroyOnLoad(this.gameObject);
-
-	}
-
-	void Update () {
-	
-	}
+    }
 
     public void Save()
     {
@@ -31,7 +27,7 @@ public class PersistentData : MonoBehaviour {
 
     public void Load()
     {
-        levelUnlockedStatus[0] = PlayerPrefs.GetInt("level1");
+        levelUnlockedStatus[0] = 1;
         levelUnlockedStatus[1] = PlayerPrefs.GetInt("level2");
         levelUnlockedStatus[2] = PlayerPrefs.GetInt("level3");
         levelUnlockedStatus[3] = PlayerPrefs.GetInt("level4");
