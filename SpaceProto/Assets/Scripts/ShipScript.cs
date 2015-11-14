@@ -3,25 +3,24 @@ using System.Collections;
 
 public class ShipScript : MonoBehaviour {
 
-    CannonScript[] turrets;
+    CannonAnchorScript[] turrets;
 
     public bool onTheRight;
 
+    public float cannonRotationSpeed;
+
 	// Use this for initialization
 	void Start () {
-        turrets = GetComponentsInChildren<CannonScript>();
-	}
-
-    void Awake()
-    {
+        turrets = GetComponentsInChildren<CannonAnchorScript>();
         SetTurrets();
-    }
+	}
 
     void SetTurrets()
     {
-        foreach (CannonScript script in turrets)
+        foreach (CannonAnchorScript script in turrets)
         {
-            script.onTheRight = onTheRight;
+            script.SetCannonOnRight(onTheRight);
+            script.SetCannonRotationSpeed(cannonRotationSpeed);
         }
     }
 	
