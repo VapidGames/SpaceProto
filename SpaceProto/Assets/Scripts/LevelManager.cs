@@ -78,6 +78,8 @@ public class LevelManager : MonoBehaviour {
 
         go.SetActive(false);
 
+        planets[0].GetComponent<PlanetScript>().planetID = currentLevel;
+
         BuildLevel();
 	}
 
@@ -124,6 +126,7 @@ public class LevelManager : MonoBehaviour {
         GameObject newPlanet = (GameObject)Instantiate(planet, new Vector3(0, levelHeight + 80.0f, 0), transform.rotation);
 
         planets[1] = newPlanet;
+        planets[1].GetComponent<PlanetScript>().planetID = currentLevel + 1;
 
         camera.transform.position = new Vector3(camera.transform.position.x, 0, camera.transform.position.z);
 
@@ -146,7 +149,7 @@ public class LevelManager : MonoBehaviour {
 
         planets[0].GetComponent<PlanetScript>().BecomeStartingPlanet();
 
-        player.transform.position = new Vector3(0, -17.7f, 0);
+        player.transform.position = new Vector3(0, -16.5f, 0);
     }
 
     public void NextLevel()
@@ -165,8 +168,12 @@ public class LevelManager : MonoBehaviour {
         go.SetActive(false);
     }
 
-    public void ViewPlanet()
+    public void ViewPlanet(int ID)
     {
+
+        if (ID == currentLevel)
+            planets[1] = planets[0];
+
         //DestroyLevel();
         CameraFollowScript script = camera.GetComponent<CameraFollowScript>();
         script.planetPosition = new Vector3(planets[1].transform.position.x, planets[1].transform.position.y, -200);
@@ -174,5 +181,7 @@ public class LevelManager : MonoBehaviour {
         //show ui
 
         go.SetActive(true);
+
+        currentLevel = ID - 1;
     }
 }
