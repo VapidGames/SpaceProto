@@ -13,11 +13,16 @@ public class PlayerControlScript : MonoBehaviour {
     [Range(0.0f, 20.0f)]
     public float acceleration;
 
+    [Range(0.0001f, 0.1f)]
+    public float accelerationBurstInverse;
+
     private ParticleSystem[] boosters;
 
     private bool rotatingLeft = false;
     private bool rotatingRight = false;
     private bool thrusting = false;
+
+    private float thrustingStart;
 
     RuntimePlatform platform = Application.platform;
 
@@ -61,6 +66,8 @@ public class PlayerControlScript : MonoBehaviour {
             boosters[i].Stop();
         }
         boosters[4].Play();
+
+        thrustingStart = Time.time;
     }
 
     void StopThrusters()
@@ -99,7 +106,9 @@ public class PlayerControlScript : MonoBehaviour {
             StartThrusting();
         }
 
-        playerBox.AddForce(playerBox.transform.up * acceleration);
+        float timeSinceStartedThrusting = Time.time - thrustingStart + accelerationBurstInverse;
+
+        playerBox.AddForce(playerBox.transform.up * acceleration * Mathf.Max((1/timeSinceStartedThrusting), 1));
 
         rotatingLeft = false;
         rotatingRight = false;
