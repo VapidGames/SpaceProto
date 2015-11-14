@@ -11,6 +11,8 @@ public class PlanetScript : MonoBehaviour {
 
     public bool startingPlanet;
 
+    public int planetID;
+
 	// Use this for initialization
     void Start()
     {
@@ -33,7 +35,7 @@ public class PlanetScript : MonoBehaviour {
     public void BecomeStartingPlanet()
     {
         startingPlanet = true;
-        GetComponent<CircleCollider2D>().enabled = false;
+        //GetComponent<CircleCollider2D>().enabled = false;
     }
 
     public void BecomeEndingPlanet()
@@ -43,9 +45,9 @@ public class PlanetScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && !startingPlanet)
+        if (other.gameObject.tag == "Player")
         {
-            managerScript.ViewPlanet();
+            managerScript.ViewPlanet(planetID);
         }
     }
 }
