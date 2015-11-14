@@ -27,6 +27,10 @@ public class LevelManager : MonoBehaviour {
 
     private GameObject go;
 
+    public Material[] planetMats;
+
+    public GameObject backgroundPlanet;
+
 	void Start () {
 
         objects = new List<GameObject>();
@@ -47,30 +51,7 @@ public class LevelManager : MonoBehaviour {
             leveldata[i] = new LevelScript();
         }
 
-        leveldata[0].mediumAsteroids = 7;
-        leveldata[0].largeAsteroids = 3;
-        leveldata[0].enemyShips = 0;
-        leveldata[0].levelLength = 100;
-
-        leveldata[1].mediumAsteroids = 10;
-        leveldata[1].largeAsteroids = 4;
-        leveldata[1].enemyShips = 0;
-        leveldata[1].levelLength = 100;
-
-        leveldata[2].mediumAsteroids = 13;
-        leveldata[2].largeAsteroids = 5;
-        leveldata[2].enemyShips = 0;
-        leveldata[2].levelLength = 100;
-
-        leveldata[3].mediumAsteroids = 16;
-        leveldata[3].largeAsteroids = 6;
-        leveldata[3].enemyShips = 0;
-        leveldata[3].levelLength = 100;
-
-        leveldata[4].mediumAsteroids = 10;
-        leveldata[4].largeAsteroids = 4;
-        leveldata[4].enemyShips = 0;
-        leveldata[4].levelLength = 100;
+		CreateLevelData ();
 
         persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
 
@@ -79,6 +60,7 @@ public class LevelManager : MonoBehaviour {
         go.SetActive(false);
 
         planets[0].GetComponent<PlanetScript>().planetID = currentLevel;
+        planets[0].GetComponent<Renderer>().material = planetMats[currentLevel];
 
         BuildLevel();
 	}
@@ -92,6 +74,7 @@ public class LevelManager : MonoBehaviour {
         if (currentLevel == -1)
         {
             Application.LoadLevel("Menu");
+            return;
         }
         //get the data from levelData[currentLevel]
         float levelWidth = 20.0f;
@@ -123,10 +106,20 @@ public class LevelManager : MonoBehaviour {
             objects.Add(large);
         }
 
+        for (int i = 0; i < leveldata[currentLevel].backgroundPlanets.Length; ++i)
+        {
+            GameObject newBGPlanet = (GameObject)Instantiate(backgroundPlanet, leveldata[currentLevel].backgroundPlanets[i], transform.rotation);
+            newBGPlanet.transform.localScale = leveldata[currentLevel].backgroundPlanetsSize[i];
+            newBGPlanet.GetComponent<Renderer>().material = leveldata[currentLevel].backgroundPlanetsMaterials[i];
+
+            objects.Add(newBGPlanet);
+        }
+
         GameObject newPlanet = (GameObject)Instantiate(planet, new Vector3(0, levelHeight + 85.0f, 0), transform.rotation);
 
         planets[1] = newPlanet;
         planets[1].GetComponent<PlanetScript>().planetID = currentLevel + 1;
+        planets[1].GetComponent<Renderer>().material = planetMats[currentLevel + 1];
 
         camera.transform.position = new Vector3(camera.transform.position.x, 0, camera.transform.position.z);
 
@@ -164,10 +157,13 @@ public class LevelManager : MonoBehaviour {
             currentLevel++;
         BuildLevel();
 
-        persistentData.levelUnlockedStatus[currentLevel] = 1;
-        persistentData.Save();
+        if (currentLevel < levelCount && currentLevel != -1)
+        {
+            persistentData.levelUnlockedStatus[currentLevel] = 1;
+            persistentData.Save();
 
-        go.SetActive(false);
+            go.SetActive(false);
+        }
     }
 
     public void ViewPlanet(int ID)
@@ -187,8 +183,69 @@ public class LevelManager : MonoBehaviour {
         currentLevel = ID - 1;
     }
 
+    public void ResetLevel()
+    {
+        currentLevel--;
+        NextLevel();
+    }
+
     public void SwitchToMenu()
     {
         Application.LoadLevel("Menu");
+    }
+
+    void CreateLevelData()
+    {
+        leveldata[0].mediumAsteroids = 7;
+        leveldata[0].largeAsteroids = 3;
+        leveldata[0].enemyShips = 0;
+        leveldata[0].levelLength = 100;
+        leveldata[0].backgroundPlanets = new Vector3[2];
+        leveldata[0].backgroundPlanetsSize = new Vector3[2];
+        leveldata[0].backgroundPlanetsMaterials = new Material[2];
+
+        leveldata[0].backgroundPlanets[0] = new Vector3(43.8f, -20.9f, 225.9f);
+        leveldata[0].backgroundPlanetsSize[0] = new Vector3(91.8f, 91.8f, 91.8f);
+        leveldata[0].backgroundPlanetsMaterials[0] = planetMats[4];
+
+        leveldata[0].backgroundPlanets[1] = new Vector3(-58.4f, 105.6f, 225.9f);
+        leveldata[0].backgroundPlanetsSize[1] = new Vector3(139.3f, 139.3f, 139.3f);
+        leveldata[0].backgroundPlanetsMaterials[1] = planetMats[3];
+
+        leveldata[1].mediumAsteroids = 10;
+        leveldata[1].largeAsteroids = 4;
+        leveldata[1].enemyShips = 0;
+        leveldata[1].levelLength = 100;
+		leveldata[1].backgroundPlanets = new Vector3[1];
+		leveldata[1].backgroundPlanetsSize = new Vector3[1];
+		leveldata[1].backgroundPlanetsMaterials = new Material[1];
+
+        leveldata[1].backgroundPlanets[0] = new Vector3(0.9f, -40.7f, 257f);
+        leveldata[1].backgroundPlanetsSize[0] = new Vector3(181.2022f, 181.2022f, 181.2022f);
+        leveldata[1].backgroundPlanetsMaterials[0] = planetMats[6];
+       
+        leveldata[2].mediumAsteroids = 13;
+        leveldata[2].largeAsteroids = 5;
+        leveldata[2].enemyShips = 0;
+        leveldata[2].levelLength = 100;
+		leveldata[2].backgroundPlanets = new Vector3[0];
+		leveldata[2].backgroundPlanetsSize = new Vector3[0];
+		leveldata[2].backgroundPlanetsMaterials = new Material[0];
+
+        leveldata[3].mediumAsteroids = 16;
+        leveldata[3].largeAsteroids = 6;
+        leveldata[3].enemyShips = 0;
+        leveldata[3].levelLength = 100;
+		leveldata[3].backgroundPlanets = new Vector3[0];
+		leveldata[3].backgroundPlanetsSize = new Vector3[0];
+		leveldata[3].backgroundPlanetsMaterials = new Material[0];
+
+        leveldata[4].mediumAsteroids = 10;
+        leveldata[4].largeAsteroids = 4;
+        leveldata[4].enemyShips = 0;
+        leveldata[4].levelLength = 100;
+		leveldata[4].backgroundPlanets = new Vector3[0];
+		leveldata[4].backgroundPlanetsSize = new Vector3[0];
+		leveldata[4].backgroundPlanetsMaterials = new Material[0];
     }
 }

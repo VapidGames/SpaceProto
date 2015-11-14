@@ -11,4 +11,8 @@ public class LevelScript
     [Range(100, 500)]
     public int levelLength;
 
+    public Vector3[] backgroundPlanets;
+    public Vector3[] backgroundPlanetsSize;
+    public Material[] backgroundPlanetsMaterials;
+
 }
