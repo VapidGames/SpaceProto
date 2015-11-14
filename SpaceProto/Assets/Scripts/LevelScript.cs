@@ -3,6 +3,7 @@ using System.Collections;
 
 public class LevelScript
 {
+    public bool shipBattle;
 
     public int mediumAsteroids;
     public int largeAsteroids;

@@ -31,6 +31,8 @@ public class LevelManager : MonoBehaviour {
 
     public GameObject backgroundPlanet;
 
+    public GameObject shipBattle;
+
 	void Start () {
 
         objects = new List<GameObject>();
@@ -83,6 +85,13 @@ public class LevelManager : MonoBehaviour {
         int mediumAsteroids = leveldata[currentLevel].mediumAsteroids;
         int largeAsteroids = leveldata[currentLevel].largeAsteroids;
         int enemyShips = leveldata[currentLevel].enemyShips;
+
+        if (shipBattle)
+        {
+            GameObject ships = (GameObject)Instantiate(shipBattle, new Vector3(0, 35.0f, 0), transform.rotation);
+
+            objects.Add(ships);
+        }
 
         for (int i = 0; i < mediumAsteroids; ++i)
         {
@@ -203,6 +212,7 @@ public class LevelManager : MonoBehaviour {
         leveldata[0].backgroundPlanets = new Vector3[2];
         leveldata[0].backgroundPlanetsSize = new Vector3[2];
         leveldata[0].backgroundPlanetsMaterials = new Material[2];
+        leveldata[0].shipBattle = false;
 
         leveldata[0].backgroundPlanets[0] = new Vector3(43.8f, -20.9f, 225.9f);
         leveldata[0].backgroundPlanetsSize[0] = new Vector3(91.8f, 91.8f, 91.8f);
@@ -219,6 +229,7 @@ public class LevelManager : MonoBehaviour {
 		leveldata[1].backgroundPlanets = new Vector3[1];
 		leveldata[1].backgroundPlanetsSize = new Vector3[1];
 		leveldata[1].backgroundPlanetsMaterials = new Material[1];
+        leveldata[1].shipBattle = false;
 
         leveldata[1].backgroundPlanets[0] = new Vector3(0.9f, -40.7f, 257f);
         leveldata[1].backgroundPlanetsSize[0] = new Vector3(181.2022f, 181.2022f, 181.2022f);
@@ -231,6 +242,7 @@ public class LevelManager : MonoBehaviour {
 		leveldata[2].backgroundPlanets = new Vector3[0];
 		leveldata[2].backgroundPlanetsSize = new Vector3[0];
 		leveldata[2].backgroundPlanetsMaterials = new Material[0];
+        leveldata[2].shipBattle = false;
 
         leveldata[3].mediumAsteroids = 16;
         leveldata[3].largeAsteroids = 6;
@@ -239,13 +251,15 @@ public class LevelManager : MonoBehaviour {
 		leveldata[3].backgroundPlanets = new Vector3[0];
 		leveldata[3].backgroundPlanetsSize = new Vector3[0];
 		leveldata[3].backgroundPlanetsMaterials = new Material[0];
+        leveldata[3].shipBattle = false;
 
-        leveldata[4].mediumAsteroids = 10;
-        leveldata[4].largeAsteroids = 4;
+        leveldata[4].mediumAsteroids = 0;
+        leveldata[4].largeAsteroids = 0;
         leveldata[4].enemyShips = 0;
         leveldata[4].levelLength = 100;
 		leveldata[4].backgroundPlanets = new Vector3[0];
 		leveldata[4].backgroundPlanetsSize = new Vector3[0];
 		leveldata[4].backgroundPlanetsMaterials = new Material[0];
+        leveldata[4].shipBattle = true;
     }
 }
