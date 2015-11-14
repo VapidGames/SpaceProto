@@ -22,6 +22,7 @@ public class MenuInputHandler : MonoBehaviour {
     private Vector2 touchEnd;
 
     private DeviceType deviceType;
+
 	void Start () {
 
         deviceType = SystemInfo.deviceType;

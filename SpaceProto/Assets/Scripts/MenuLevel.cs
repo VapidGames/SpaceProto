@@ -12,6 +12,10 @@ public class MenuLevel : MonoBehaviour {
     public Material lockedMat;
     public Material unlockedMat;
 
+    public int levelID;
+
+    public PersistentData persistentData;
+
 	void Start () {
 
         renderer = transform.GetComponent<Renderer>();
@@ -25,12 +29,16 @@ public class MenuLevel : MonoBehaviour {
             renderer.material = lockedMat;
         }
 
+        if (GameObject.Find("PersistentData") != null)
+            persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
+
 	}
 
     public void Hit()
     {
         if (unlocked)
         {
+            persistentData.currentLevelID = levelID;
             Application.LoadLevel(levelName);
         }
     }
