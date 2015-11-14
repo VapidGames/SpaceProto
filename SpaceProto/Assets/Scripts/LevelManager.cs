@@ -131,6 +131,8 @@ public class LevelManager : MonoBehaviour {
 
         planets[0].transform.position = new Vector3(0, -81.4f, 0);
 
+        planets[0].GetComponent<PlanetScript>().BecomeStartingPlanet();
+
         player.transform.position = new Vector3(0, -17.7f, 0);
     }
 
@@ -139,6 +141,8 @@ public class LevelManager : MonoBehaviour {
         DestroyLevel();
         if (currentLevel == levelCount - 1)
             currentLevel = -1;
+        else
+            currentLevel++;
         BuildLevel();
 
         persistentData.levelUnlockedStatus[currentLevel] = 1;
