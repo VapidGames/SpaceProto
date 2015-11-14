@@ -8,6 +8,11 @@ public class CannonScript : MonoBehaviour {
 
     public GameObject laserObject;
 
+    public bool onTheRight;
+
+    [Range (10.0f, 50.0f)]
+    public float rotationSpeed;
+
 	// Use this for initialization
 	void Start () {
         ResetTarget();
@@ -29,24 +34,43 @@ public class CannonScript : MonoBehaviour {
             currentAngle -= 360;
         }
 
+        if (onTheRight)
+        {
+            Debug.Log(currentAngle);
+        }
+
         if (currentAngle > currentRotationTarget)
         {
-            RotateRight();
+            if (onTheRight)
+                RotateLeft();
+            else
+                RotateRight();
         }
         else
         {
-            RotateLeft();
+            if (onTheRight)
+                RotateRight();
+            else
+                RotateLeft();
         }
 	}
 
     void Shoot()
     {
-        Instantiate(laserObject, transform.position, Quaternion.AngleAxis(90 - currentAngle, transform.up));
+        if (!onTheRight)
+        {
+            Instantiate(laserObject, transform.position - transform.forward * 3, Quaternion.AngleAxis(90 - currentAngle, transform.up));
+        }
+        else
+        {
+            Instantiate(laserObject, transform.position - transform.forward * 3, Quaternion.AngleAxis(-90 + currentAngle, transform.up));
+        }
+        
     }
 
     void RotateRight()
     {
-        transform.Rotate(Vector3.up, 12.0f * Time.deltaTime);
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
         if (Mathf.Abs(currentAngle - currentRotationTarget) < 0.1f)
         {
             ResetTarget();
@@ -55,7 +79,7 @@ public class CannonScript : MonoBehaviour {
 
     void RotateLeft()
     {
-        transform.Rotate(Vector3.up, -12.0f * Time.deltaTime);
+        transform.Rotate(Vector3.up, -1 * rotationSpeed * Time.deltaTime);
         if (Mathf.Abs(currentAngle - currentRotationTarget) < 0.1f)
         {
             ResetTarget();
