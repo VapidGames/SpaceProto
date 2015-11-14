@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour {
 
     public GameObject asteroid;
     public GameObject enemyShip;
+    public GameObject planet;
 
 	void Start () {
 
@@ -27,6 +28,7 @@ public class LevelManager : MonoBehaviour {
         leveldata[0].levelLength = 100;
 
         persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
+
         currentLevel = persistentData.currentLevelID - 1;
 
         BuildLevel();
@@ -52,6 +54,8 @@ public class LevelManager : MonoBehaviour {
 
             Instantiate(asteroid, new Vector3(randX, randY, 0), transform.rotation);
         }
+
+        Instantiate(planet, new Vector3(0, levelHeight + 64.0f, 0), transform.rotation);
 
 
     }
