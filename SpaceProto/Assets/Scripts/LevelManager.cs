@@ -10,9 +10,17 @@ public class LevelManager : MonoBehaviour {
     public int currentLevel;
 
     public PersistentData persistentData;
+
+    public GameObject asteroid;
+    public GameObject enemyShip;
+
 	void Start () {
 
         leveldata = new LevelScript[levelCount];
+        for (int i = 0; i < levelCount; ++i)
+        {
+            leveldata[i] = new LevelScript();
+        }
 
         leveldata[0].asteroids = 20;
         leveldata[0].enemyShips = 0;
@@ -20,6 +28,8 @@ public class LevelManager : MonoBehaviour {
 
         persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
         currentLevel = persistentData.currentLevelID - 1;
+
+        BuildLevel();
 	}
 
 	void Update () {
@@ -29,6 +39,20 @@ public class LevelManager : MonoBehaviour {
     public void BuildLevel()
     {
         //get the data from levelData[currentLevel]
+        float levelWidth = 20.0f;
+        float levelHeight = leveldata[currentLevel].levelLength;
+
+        int asteroids = leveldata[currentLevel].asteroids;
+        int enemyShips = leveldata[currentLevel].enemyShips;
+
+        for (int i = 0; i < asteroids; ++i)
+        {
+            float randX = Random.Range(-levelWidth / 2, levelWidth / 2);
+            float randY = Random.Range(0, levelHeight);
+
+            Instantiate(asteroid, new Vector3(randX, randY, 0), transform.rotation);
+        }
+
 
     }
 
