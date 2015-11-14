@@ -9,7 +9,7 @@ public class PlanetScript : MonoBehaviour {
 
     LevelManager managerScript;
 
-    private bool startingPlanet;
+    public bool startingPlanet;
 
 	// Use this for initialization
     void Start()
@@ -45,7 +45,7 @@ public class PlanetScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" && !startingPlanet)
         {
-            managerScript.NextLevel();
+            managerScript.ViewPlanet();
         }
     }
 }

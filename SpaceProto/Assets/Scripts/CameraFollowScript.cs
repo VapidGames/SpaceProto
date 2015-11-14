@@ -16,6 +16,11 @@ public class CameraFollowScript : MonoBehaviour
     [Range(0.0f, 10.0f)]
     public float fixedCameraVelocity;
 
+    public bool focusedOnPlayer;
+    public Vector3 planetPosition;
+
+
+
     // Use this for initialization
     void Start()
     {
@@ -26,9 +31,18 @@ public class CameraFollowScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!playerScript.IsInAtmosphere())
+        if (focusedOnPlayer)
         {
-            FollowCameraUpdate();
+            if (!playerScript.IsInAtmosphere())
+            {
+                FollowCameraUpdate();
+            }
+            else
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, -40), 0.15f);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, planetPosition, 0.05f);
         }
     }
 
@@ -45,6 +59,6 @@ public class CameraFollowScript : MonoBehaviour
     void FollowCameraUpdate()
     {
         transform.position = Vector3.Slerp(transform.position,
-            new Vector3(transform.position.x, playerObject.transform.position.y + playerObject.velocity.y * playerVelocityInheritance, transform.position.z), lerpValue);
+            new Vector3(transform.position.x, playerObject.transform.position.y + playerObject.velocity.y * playerVelocityInheritance, -40), lerpValue);
     }
 }

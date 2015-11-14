@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,6 +23,10 @@ public class LevelManager : MonoBehaviour {
 
     private GameObject player;
 
+    private GameObject camera;
+
+    private GameObject go;
+
 	void Start () {
 
         objects = new List<GameObject>();
@@ -31,6 +36,10 @@ public class LevelManager : MonoBehaviour {
         planets[0] = GameObject.Find("StartingPlanet");
 
         player = GameObject.Find("Player");
+
+        camera = GameObject.Find("Main Camera");
+
+        go = GameObject.Find("Canvas");
 
         leveldata = new LevelScript[levelCount];
         for (int i = 0; i < levelCount; ++i)
@@ -66,6 +75,8 @@ public class LevelManager : MonoBehaviour {
         persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
 
         currentLevel = persistentData.currentLevelID - 1;
+
+        go.SetActive(false);
 
         BuildLevel();
 	}
@@ -114,6 +125,8 @@ public class LevelManager : MonoBehaviour {
 
         planets[1] = newPlanet;
 
+        camera.transform.position = new Vector3(camera.transform.position.x, 0, camera.transform.position.z);
+
     }
 
     private void DestroyLevel()
@@ -138,6 +151,7 @@ public class LevelManager : MonoBehaviour {
 
     public void NextLevel()
     {
+        camera.GetComponent<CameraFollowScript>().focusedOnPlayer = true;
         DestroyLevel();
         if (currentLevel == levelCount - 1)
             currentLevel = -1;
@@ -147,5 +161,18 @@ public class LevelManager : MonoBehaviour {
 
         persistentData.levelUnlockedStatus[currentLevel] = 1;
         persistentData.Save();
+
+        go.SetActive(false);
+    }
+
+    public void ViewPlanet()
+    {
+        //DestroyLevel();
+        CameraFollowScript script = camera.GetComponent<CameraFollowScript>();
+        script.planetPosition = new Vector3(planets[1].transform.position.x, planets[1].transform.position.y, -200);
+        script.focusedOnPlayer = false;
+        //show ui
+
+        go.SetActive(true);
     }
 }
