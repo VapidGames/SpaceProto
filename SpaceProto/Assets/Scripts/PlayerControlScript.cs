@@ -39,6 +39,7 @@ public class PlayerControlScript : MonoBehaviour {
         alive = true;
         playerBox = GetComponent<Rigidbody2D>();
         boosters = gameObject.GetComponentsInChildren<ParticleSystem>();
+        inAtmosphere = true;
 	}
 	
 	// Update is called once per frame
