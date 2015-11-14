@@ -12,6 +12,11 @@ public class AtmosphereScript : MonoBehaviour {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControlScript>();
 	}
 
+    public void UpdateStartingPlanet(bool isStartingPlanet)
+    {
+        startingPlanet = isStartingPlanet;
+    }
+
     public float GetTopOfAtmosphereYPosition()
     {
         return transform.position.y + transform.lossyScale.y/2;
