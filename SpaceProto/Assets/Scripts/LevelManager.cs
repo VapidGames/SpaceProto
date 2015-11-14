@@ -47,28 +47,28 @@ public class LevelManager : MonoBehaviour {
             leveldata[i] = new LevelScript();
         }
 
-        leveldata[0].mediumAsteroids = 10;
-        leveldata[0].largeAsteroids = 5;
+        leveldata[0].mediumAsteroids = 7;
+        leveldata[0].largeAsteroids = 3;
         leveldata[0].enemyShips = 0;
         leveldata[0].levelLength = 100;
 
         leveldata[1].mediumAsteroids = 10;
-        leveldata[1].largeAsteroids = 5;
+        leveldata[1].largeAsteroids = 4;
         leveldata[1].enemyShips = 0;
         leveldata[1].levelLength = 100;
 
-        leveldata[2].mediumAsteroids = 10;
+        leveldata[2].mediumAsteroids = 13;
         leveldata[2].largeAsteroids = 5;
         leveldata[2].enemyShips = 0;
         leveldata[2].levelLength = 100;
 
-        leveldata[3].mediumAsteroids = 10;
-        leveldata[3].largeAsteroids = 5;
+        leveldata[3].mediumAsteroids = 16;
+        leveldata[3].largeAsteroids = 6;
         leveldata[3].enemyShips = 0;
         leveldata[3].levelLength = 100;
 
         leveldata[4].mediumAsteroids = 10;
-        leveldata[4].largeAsteroids = 5;
+        leveldata[4].largeAsteroids = 4;
         leveldata[4].enemyShips = 0;
         leveldata[4].levelLength = 100;
 
@@ -123,7 +123,7 @@ public class LevelManager : MonoBehaviour {
             objects.Add(large);
         }
 
-        GameObject newPlanet = (GameObject)Instantiate(planet, new Vector3(0, levelHeight + 80.0f, 0), transform.rotation);
+        GameObject newPlanet = (GameObject)Instantiate(planet, new Vector3(0, levelHeight + 85.0f, 0), transform.rotation);
 
         planets[1] = newPlanet;
         planets[1].GetComponent<PlanetScript>().planetID = currentLevel + 1;
@@ -150,6 +150,7 @@ public class LevelManager : MonoBehaviour {
         planets[0].GetComponent<PlanetScript>().BecomeStartingPlanet();
 
         player.transform.position = new Vector3(0, -16.5f, 0);
+        player.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void NextLevel()
@@ -178,10 +179,15 @@ public class LevelManager : MonoBehaviour {
         CameraFollowScript script = camera.GetComponent<CameraFollowScript>();
         script.planetPosition = new Vector3(planets[1].transform.position.x, planets[1].transform.position.y, -200);
         script.focusedOnPlayer = false;
-        //show ui
 
+        //show ui
         go.SetActive(true);
 
         currentLevel = ID - 1;
+    }
+
+    public void SwitchToMenu()
+    {
+        Application.LoadLevel("Menu");
     }
 }
