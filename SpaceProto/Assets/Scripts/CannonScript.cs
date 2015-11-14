@@ -71,7 +71,7 @@ public class CannonScript : MonoBehaviour {
     void RotateRight()
     {
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
-        if (Mathf.Abs(currentAngle - currentRotationTarget) < 0.1f)
+        if (Mathf.Abs(currentAngle - currentRotationTarget) < 1.0f)
         {
             ResetTarget();
         }
@@ -80,7 +80,7 @@ public class CannonScript : MonoBehaviour {
     void RotateLeft()
     {
         transform.Rotate(Vector3.up, -1 * rotationSpeed * Time.deltaTime);
-        if (Mathf.Abs(currentAngle - currentRotationTarget) < 0.1f)
+        if (Mathf.Abs(currentAngle - currentRotationTarget) < 1.0f)
         {
             ResetTarget();
         }
