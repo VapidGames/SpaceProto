@@ -52,6 +52,11 @@ public class PlayerControlScript : MonoBehaviour {
         }
 	}
 
+    public void ZeroVelocity()
+    {
+        playerBox.velocity = new Vector2(0, 0);
+    }
+
     public bool IsInAtmosphere()
     {
         return inAtmosphere;
@@ -173,9 +178,11 @@ public class PlayerControlScript : MonoBehaviour {
             StartThrusting();
         }
 
-        float timeSinceStartedThrusting = Time.time - thrustingStart + accelerationBurstInverse;
+        //float timeSinceStartedThrusting = Time.time - thrustingStart + accelerationBurstInverse;
 
-        playerBox.AddForce(playerBox.transform.up * acceleration * Mathf.Max((1/timeSinceStartedThrusting), 1));
+        //playerBox.AddForce(playerBox.transform.up * acceleration * Mathf.Max((1/timeSinceStartedThrusting), 1));
+
+        playerBox.AddForce(playerBox.transform.up * acceleration);
         rotatingLeft = false;
         rotatingRight = false;
 

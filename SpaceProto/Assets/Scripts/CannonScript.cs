@@ -6,6 +6,8 @@ public class CannonScript : MonoBehaviour {
     float currentRotationTarget;
     float currentAngle;
 
+    public GameObject laserObject;
+
 	// Use this for initialization
 	void Start () {
         ResetTarget();
@@ -27,8 +29,6 @@ public class CannonScript : MonoBehaviour {
             currentAngle -= 360;
         }
 
-        Debug.Log(currentAngle);
-
         if (currentAngle > currentRotationTarget)
         {
             RotateRight();
@@ -41,7 +41,7 @@ public class CannonScript : MonoBehaviour {
 
     void Shoot()
     {
-
+        Instantiate(laserObject, transform.position, Quaternion.AngleAxis(90 - currentAngle, transform.up));
     }
 
     void RotateRight()
