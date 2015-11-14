@@ -9,7 +9,7 @@ public class PlanetScript : MonoBehaviour {
 
     LevelManager managerScript;
 
-    public bool startingPlanet;
+    private bool startingPlanet;
 
 	// Use this for initialization
     void Start()
@@ -19,27 +19,26 @@ public class PlanetScript : MonoBehaviour {
         managerScript = GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }
 
-    void UpdateAtmosphereState(bool isStartingPlanet)
-    {
-        atmoScript.UpdateStartingPlanet(isStartingPlanet);
-    }
-	
 	// Update is called once per frame
     void Update()
     {
 
     }
 
+    public bool IsStartingPlanet()
+    {
+        return startingPlanet;
+    }
+
     public void BecomeStartingPlanet()
     {
         startingPlanet = true;
-        UpdateAtmosphereState(startingPlanet);
+        GetComponent<CircleCollider2D>().enabled = false;
     }
 
     public void BecomeEndingPlanet()
     {
         startingPlanet = false;
-        UpdateAtmosphereState(startingPlanet);
     }
 
     void OnTriggerEnter2D(Collider2D other)
