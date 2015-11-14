@@ -8,8 +8,26 @@ public class MenuConnection : MonoBehaviour {
     public GameObject planet1;
     public GameObject planet2;
 
+    public Material locked;
+    public Material unlocked;
+
+    PersistentData persistentData;
+
+    public int levelID;
+
 	void Start () {
         renderer = transform.GetComponent<LineRenderer>();
+
+        persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
+
+        if (persistentData.levelUnlockedStatus[levelID - 1] == 0)
+        {
+            renderer.material = locked;
+        }
+        else
+        {
+            renderer.material = unlocked;
+        }
 	}
 	
 	// Update is called once per frame

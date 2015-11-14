@@ -19,15 +19,6 @@ public class MenuLevel : MonoBehaviour {
     void Awake()
     {
         renderer = transform.GetComponent<Renderer>();
-
-        if (unlocked)
-        {
-            renderer.material = unlockedMat;
-        }
-        else
-        {
-            renderer.material = lockedMat;
-        }
     }
 
 	void Start () 
@@ -36,9 +27,15 @@ public class MenuLevel : MonoBehaviour {
             persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
 
         if (persistentData.levelUnlockedStatus[levelID - 1] == 0)
+        {
             unlocked = false;
+            renderer.material = lockedMat;
+        }
         else
+        {
             unlocked = true;
+            renderer.material = unlockedMat;
+        }
 	}
 
     public void Hit()
