@@ -9,7 +9,7 @@ public class CameraFollowScript : MonoBehaviour
     [Range(0.0f, 5.0f)]
     public float playerVelocityInheritance;
 
-    [Range(0.0f, 2.0f)]
+    [Range(0.0f, 1.0f)]
     public float lerpValue;
 
     [Range(0.0f, 10.0f)]
