@@ -136,12 +136,12 @@ public class LevelManager : MonoBehaviour {
 
     public void NextLevel()
     {
-        persistentData.levelUnlockedStatus[currentLevel] = 1;
-        persistentData.Save();
-
         DestroyLevel();
         if (currentLevel == levelCount - 1)
             currentLevel = -1;
         BuildLevel();
+
+        persistentData.levelUnlockedStatus[currentLevel] = 1;
+        persistentData.Save();
     }
 }
