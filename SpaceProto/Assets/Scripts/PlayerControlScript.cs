@@ -114,7 +114,8 @@ public class PlayerControlScript : MonoBehaviour {
             rotatingLeft = true;
             StartTurningLeft();
         }
-        playerBox.AddTorque(torque);
+        //playerBox.AddTorque(torque);
+        playerBox.rotation += torque;
     }
 
     void RotateRight()
@@ -124,7 +125,8 @@ public class PlayerControlScript : MonoBehaviour {
             rotatingRight = true;
             StartTurningRight();
         }
-        playerBox.AddTorque(-torque);
+        //playerBox.AddTorque(-torque);
+        playerBox.rotation -= torque;
     }
 
     void Deccelerate()
