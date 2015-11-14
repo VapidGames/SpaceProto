@@ -40,6 +40,7 @@ public class PlayerControlScript : MonoBehaviour {
         playerBox = GetComponent<Rigidbody2D>();
         boosters = gameObject.GetComponentsInChildren<ParticleSystem>();
         inAtmosphere = true;
+        StopThrusters();
 	}
 	
 	// Update is called once per frame
