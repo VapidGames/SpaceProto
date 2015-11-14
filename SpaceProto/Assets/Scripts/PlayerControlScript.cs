@@ -18,7 +18,7 @@ public class PlayerControlScript : MonoBehaviour {
     [Range(0.0001f, 0.1f)]
     public float accelerationBurstInverse;
 
-    [Range(0.1f, 10.0f)]
+    [Range(0.1f, 20.0f)]
     public float maxSpeed;
 
     [Range(10.0f, 400.0f)]
