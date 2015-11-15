@@ -224,4 +224,12 @@ public class PlayerControlScript : MonoBehaviour {
             Thrust();
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "BigShip")
+        {
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetLevel();
+        }
+    }
 }
