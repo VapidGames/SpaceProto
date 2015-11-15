@@ -33,6 +33,8 @@ public class LevelManager : MonoBehaviour {
 
     public GameObject shipBattle;
 
+	private bool nextPlanet = false;
+
 	void Start () {
 
         objects = new List<GameObject>();
@@ -143,14 +145,16 @@ public class LevelManager : MonoBehaviour {
                 Destroy(objects[i]);
         }
 
-        //move current planet and ship back to (0, 0, 0)
-        Destroy(planets[0]);
-        planets[0] = planets[1];
-        planets[1] = null;
-
-        planets[0].transform.position = new Vector3(0, -81.4f, 0);
-
-        planets[0].GetComponent<PlanetScript>().BecomeStartingPlanet();
+		if (nextPlanet) {
+			Destroy (planets [0]);
+			planets [0] = planets [1];
+			planets [1] = null;
+			
+			planets [0].transform.position = new Vector3 (0, -81.4f, 0);
+			
+			planets [0].GetComponent<PlanetScript> ().BecomeStartingPlanet ();
+		}
+        
 
         player.GetComponent<PlayerControlScript>().ZeroVelocity();
 
@@ -181,16 +185,21 @@ public class LevelManager : MonoBehaviour {
 
     public void ViewPlanet(int ID)
     {
+		Vector3 pos;
 
         if (ID == currentLevel) {
-			planets [1] = planets [0];
+			pos = planets [0].transform.position;
+			nextPlanet = false;
+		} else {
+			pos = planets [1].transform.position;
+			nextPlanet = true;
 		}
 
         player.GetComponent<PlayerControlScript>().canMove = false;
 
         //DestroyLevel();
         CameraFollowScript script = camera.GetComponent<CameraFollowScript>();
-        script.planetPosition = new Vector3(planets[1].transform.position.x, planets[1].transform.position.y, -200);
+		script.planetPosition = new Vector3(pos.x, pos.y, -200);
         script.focusedOnPlayer = false;
 
         //show ui
@@ -207,10 +216,10 @@ public class LevelManager : MonoBehaviour {
 
     public void ResetLevel()
     {
-        camera.transform.position = new Vector3(0, 0, -40);
         player.transform.position = new Vector3(0, -16.5f, 0);
         player.transform.rotation = Quaternion.Euler(0, 0, 0);
         player.GetComponent<PlayerControlScript>().ZeroVelocity();
+		camera.transform.position = new Vector3(0, 0, -40);
     }
 
     public void SwitchToMenu()
