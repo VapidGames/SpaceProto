@@ -220,11 +220,11 @@ public class PlayerControlScript : MonoBehaviour {
             {
                 Thrust();
             }
-            else if (Input.GetTouch(0).position.x < Screen.width / 2)
+            else if (Input.GetTouch(0).position.x < Screen.width / 2 || Input.GetTouch(1).position.x < Screen.width / 2)
             {
                 RotateLeft();
             }
-            else if (Input.GetTouch(0).position.x > Screen.width / 2)
+            else if (Input.GetTouch(0).position.x > Screen.width / 2 || Input.GetTouch(1).position.x > Screen.width / 2)
             {
                 RotateRight();
             }
