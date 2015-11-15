@@ -26,8 +26,6 @@ public class PlayerControlScript : MonoBehaviour {
 
     private ParticleSystem boosters;
 
-    private ParticleSystem explosion;
-
     private bool thrusting = false;
 
     private float thrustingStart;
@@ -41,7 +39,6 @@ public class PlayerControlScript : MonoBehaviour {
         alive = true;
         playerBox = GetComponent<Rigidbody2D>();
         boosters = gameObject.GetComponentInChildren<ParticleSystem>();
-        explosion = GetComponent<ParticleSystem>();
         inAtmosphere = true;
         StopThrusters();
 	}
@@ -107,11 +104,6 @@ public class PlayerControlScript : MonoBehaviour {
     void StartThrusting()
     {
         boosters.Play();
-    }
-
-    public void Explode()
-    {
-        explosion.Play();
     }
 
     void Deccelerate()

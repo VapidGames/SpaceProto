@@ -25,7 +25,6 @@ public class AsteroidScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerControlScript>().Explode();
             GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetLevel();
         }
     }
