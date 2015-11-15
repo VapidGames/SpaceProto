@@ -78,10 +78,6 @@ public class PlayerControlScript : MonoBehaviour {
 
     void StopThrusters()
     {
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    boosters[i].Stop();
-        //}
         thrusting = false;
         boosters.Stop();
     }
@@ -103,6 +99,11 @@ public class PlayerControlScript : MonoBehaviour {
     void StartThrusting()
     {
         boosters.Play();
+    }
+
+    public void Explode()
+    {
+        explosion.Play();
     }
 
     void Deccelerate()

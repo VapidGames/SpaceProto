@@ -25,7 +25,7 @@ public class AsteroidScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            // kill player
+            other.gameObject.GetComponent<PlayerControlScript>().Explode();
         }
     }
 
