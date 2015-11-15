@@ -32,6 +32,9 @@ public class PlayerControlScript : MonoBehaviour {
     private bool rotatingRight = false;
     private bool thrusting = false;
 
+    private bool leftThumbDown = false;
+    private bool rightThumbDown = false;
+
     private float thrustingStart;
 
     RuntimePlatform platform = Application.platform;
@@ -127,6 +130,8 @@ public class PlayerControlScript : MonoBehaviour {
         }
         //playerBox.AddTorque(torque);
         playerBox.rotation += torque;
+        rotatingRight = false;
+        thrusting = false;
     }
 
     void RotateRight()
@@ -138,6 +143,8 @@ public class PlayerControlScript : MonoBehaviour {
         }
         //playerBox.AddTorque(-torque);
         playerBox.rotation -= torque;
+        rotatingLeft = false;
+        thrusting = false;
     }
 
     void Deccelerate()
@@ -207,6 +214,56 @@ public class PlayerControlScript : MonoBehaviour {
         }
     }
 
+    //void TouchControls()
+    //{
+    //    if (Input.touchCount != 0)
+    //    {
+    //        foreach (Touch t in Input.touches)
+    //        {
+    //            if (t.position.x < Screen.width/2)
+    //            {
+    //                if (t.phase == TouchPhase.Began)
+    //                {
+    //                    leftThumbDown = true;
+    //                }
+    //                else if (t.phase == TouchPhase.Ended)
+    //                {
+    //                    leftThumbDown = false;
+    //                }
+    //            }
+
+    //            if (t.position.x > Screen.width/2)
+    //            {
+    //                if (t.phase == TouchPhase.Began)
+    //                {
+    //                    rightThumbDown= true;
+    //                }
+    //                else if (t.phase == TouchPhase.Ended)
+    //                {
+    //                    rightThumbDown = false;
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    if (leftThumbDown && !rightThumbDown)
+    //    {
+    //        RotateLeft();
+    //    }
+    //    else if (rightThumbDown && !leftThumbDown)
+    //    {
+    //        RotateRight();
+    //    }
+    //    else if (rightThumbDown && leftThumbDown)
+    //    {
+    //        Thrust();
+    //    }
+    //    else
+    //    {
+    //        StopThrusters();
+    //    }
+    //}
+
     void TouchControls()
     {
         if (Input.touchCount != 0)
@@ -220,11 +277,11 @@ public class PlayerControlScript : MonoBehaviour {
             {
                 Thrust();
             }
-            else if (Input.GetTouch(0).position.x < Screen.width / 2 || Input.GetTouch(1).position.x < Screen.width / 2)
+            else if (Input.GetTouch(0).position.x < Screen.width / 2)
             {
                 RotateLeft();
             }
-            else if (Input.GetTouch(0).position.x > Screen.width / 2 || Input.GetTouch(1).position.x > Screen.width / 2)
+            else if (Input.GetTouch(0).position.x > Screen.width / 2)
             {
                 RotateRight();
             }
