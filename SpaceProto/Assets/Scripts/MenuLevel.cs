@@ -43,6 +43,7 @@ public class MenuLevel : MonoBehaviour {
         if (unlocked)
         {
             persistentData.currentLevelID = levelID;
+			persistentData.SwitchTrack(1);
             Application.LoadLevel(levelName);
         }
     }
