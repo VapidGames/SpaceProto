@@ -34,11 +34,6 @@ public class CannonScript : MonoBehaviour {
             currentAngle -= 360;
         }
 
-        if (onTheRight)
-        {
-            Debug.Log(currentAngle);
-        }
-
         if (currentAngle > currentRotationTarget)
         {
             if (onTheRight)
