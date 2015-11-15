@@ -174,7 +174,10 @@ public class PlayerControlScript : MonoBehaviour {
                     break;
             }
         }
-
+        else
+        {
+            playerBox.velocity = new Vector2(0, 0);
+        }
     }
 
     void TouchControls()
