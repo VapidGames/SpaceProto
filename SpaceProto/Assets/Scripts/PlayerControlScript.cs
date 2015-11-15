@@ -53,6 +53,11 @@ public class PlayerControlScript : MonoBehaviour {
             TakePlayerInput();
             CheapVelocityCap();
             AngularVelocityCap();
+
+            if (transform.position.x < -16 || transform.position.x > 16)
+            {
+                GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetLevel();
+            }
         }
 	}
 
