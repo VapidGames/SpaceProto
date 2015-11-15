@@ -75,7 +75,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (currentLevel == -1)
         {
-            Application.LoadLevel("Menu");
+			SwitchToMenu();
             return;
         }
         //get the data from levelData[currentLevel]
@@ -207,6 +207,8 @@ public class LevelManager : MonoBehaviour {
 
     public void SwitchToMenu()
     {
+		persistentData.SwitchTrack (0);
+        Destroy(persistentData.gameObject);
         Application.LoadLevel("Menu");
     }
 
