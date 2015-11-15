@@ -61,6 +61,7 @@ public class PlayerControlScript : MonoBehaviour {
         playerBox.velocity = new Vector2(0, 0);
         playerBox.angularVelocity = 0;
         playerBox.rotation = 0;
+        EnterAtmosphere();
     }
 
     public bool IsInAtmosphere()
