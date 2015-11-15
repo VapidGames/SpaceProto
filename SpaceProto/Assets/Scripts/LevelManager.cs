@@ -152,6 +152,8 @@ public class LevelManager : MonoBehaviour {
 
         planets[0].GetComponent<PlanetScript>().BecomeStartingPlanet();
 
+        player.GetComponent<PlayerControlScript>().ZeroVelocity();
+
         player.transform.position = new Vector3(0, -16.5f, 0);
         player.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
@@ -208,6 +210,7 @@ public class LevelManager : MonoBehaviour {
         camera.transform.position = new Vector3(0, 0, -40);
         player.transform.position = new Vector3(0, -16.5f, 0);
         player.transform.rotation = Quaternion.Euler(0, 0, 0);
+        player.GetComponent<PlayerControlScript>().ZeroVelocity();
     }
 
     public void SwitchToMenu()
