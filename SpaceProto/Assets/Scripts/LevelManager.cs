@@ -190,8 +190,10 @@ public class LevelManager : MonoBehaviour {
         //show ui
         go.SetActive(true);
 
-		persistentData.levelUnlockedStatus[currentLevel + 1] = 1;
-		persistentData.Save();
+		if (currentLevel + 1 < levelCount) {
+			persistentData.levelUnlockedStatus [currentLevel + 1] = 1;
+			persistentData.Save ();
+		}
 
         currentLevel = ID - 1;
 
