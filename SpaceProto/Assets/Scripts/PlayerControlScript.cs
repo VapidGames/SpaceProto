@@ -32,6 +32,8 @@ public class PlayerControlScript : MonoBehaviour {
 
     private float thrustingStart;
 
+    public bool canMove = true;
+
     RuntimePlatform platform = Application.platform;
 
 	// Use this for initialization
@@ -159,67 +161,21 @@ public class PlayerControlScript : MonoBehaviour {
 
     void TakePlayerInput()
     {
-        switch(platform)
+        if (canMove)
         {
-            case RuntimePlatform.Android:
-                TouchControls();
-                break;
+            switch (platform)
+            {
+                case RuntimePlatform.Android:
+                    TouchControls();
+                    break;
 
-            default:
-                MouseControls();
-                break;
+                default:
+                    MouseControls();
+                    break;
+            }
         }
+
     }
-
-    //void TouchControls()
-    //{
-    //    if (Input.touchCount != 0)
-    //    {
-    //        foreach (Touch t in Input.touches)
-    //        {
-    //            if (t.position.x < Screen.width/2)
-    //            {
-    //                if (t.phase == TouchPhase.Began)
-    //                {
-    //                    leftThumbDown = true;
-    //                }
-    //                else if (t.phase == TouchPhase.Ended)
-    //                {
-    //                    leftThumbDown = false;
-    //                }
-    //            }
-
-    //            if (t.position.x > Screen.width/2)
-    //            {
-    //                if (t.phase == TouchPhase.Began)
-    //                {
-    //                    rightThumbDown= true;
-    //                }
-    //                else if (t.phase == TouchPhase.Ended)
-    //                {
-    //                    rightThumbDown = false;
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //    if (leftThumbDown && !rightThumbDown)
-    //    {
-    //        RotateLeft();
-    //    }
-    //    else if (rightThumbDown && !leftThumbDown)
-    //    {
-    //        RotateRight();
-    //    }
-    //    else if (rightThumbDown && leftThumbDown)
-    //    {
-    //        Thrust();
-    //    }
-    //    else
-    //    {
-    //        StopThrusters();
-    //    }
-    //}
 
     void TouchControls()
     {
