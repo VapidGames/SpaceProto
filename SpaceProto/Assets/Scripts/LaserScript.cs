@@ -28,6 +28,7 @@ public class LaserScript : MonoBehaviour {
         {
             particleSystems[0].Play();
             particleSystems[1].Play();
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetLevel();
         }
 
         if (other.gameObject.tag == "BigShip")
