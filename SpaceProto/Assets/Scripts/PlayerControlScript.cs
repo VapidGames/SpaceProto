@@ -24,16 +24,11 @@ public class PlayerControlScript : MonoBehaviour {
     [Range(10.0f, 400.0f)]
     public float maxAngularVelocity;
 
-    private ParticleSystem[] boosters;
+    private ParticleSystem boosters;
 
     private ParticleSystem explosion;
 
-    private bool rotatingLeft = false;
-    private bool rotatingRight = false;
     private bool thrusting = false;
-
-    private bool leftThumbDown = false;
-    private bool rightThumbDown = false;
 
     private float thrustingStart;
 
@@ -43,7 +38,7 @@ public class PlayerControlScript : MonoBehaviour {
 	void Start () {
         alive = true;
         playerBox = GetComponent<Rigidbody2D>();
-        boosters = gameObject.GetComponentsInChildren<ParticleSystem>();
+        boosters = gameObject.GetComponentInChildren<ParticleSystem>();
         explosion = GetComponent<ParticleSystem>();
         inAtmosphere = true;
         StopThrusters();
@@ -81,70 +76,34 @@ public class PlayerControlScript : MonoBehaviour {
         inAtmosphere = false;
     }
 
-    void StartTurningLeft()
-    {
-        boosters[1].Play();
-        boosters[3].Play();
-        boosters[0].Stop();
-        boosters[2].Stop();
-        boosters[4].Stop();
-    }
-
-    void StartTurningRight()
-    {
-        boosters[0].Play();
-        boosters[2].Play();
-        boosters[1].Stop();
-        boosters[3].Stop();
-        boosters[4].Stop();
-    }
-
-    void StartThrusting()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            boosters[i].Stop();
-        }
-        boosters[4].Play();
-
-        thrustingStart = Time.time;
-    }
-
     void StopThrusters()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            boosters[i].Stop();
-        }
         thrusting = false;
-        rotatingLeft = false;
-        rotatingRight = false;
+        boosters.Stop();
     }
 
     void RotateLeft()
     {
-        if (rotatingLeft == false)
-        {
-            rotatingLeft = true;
-            StartTurningLeft();
-        }
         //playerBox.AddTorque(torque);
         playerBox.rotation += torque;
-        rotatingRight = false;
         thrusting = false;
     }
 
     void RotateRight()
     {
-        if (rotatingRight == false)
-        {
-            rotatingRight = true;
-            StartTurningRight();
-        }
         //playerBox.AddTorque(-torque);
         playerBox.rotation -= torque;
-        rotatingLeft = false;
         thrusting = false;
+    }
+
+    void StartThrusting()
+    {
+        boosters.Play();
+    }
+
+    public void Explode()
+    {
+        explosion.Play();
     }
 
     void Deccelerate()
@@ -196,8 +155,6 @@ public class PlayerControlScript : MonoBehaviour {
         //playerBox.AddForce(playerBox.transform.up * acceleration * Mathf.Max((1/timeSinceStartedThrusting), 1));
 
         playerBox.AddForce(playerBox.transform.up * acceleration);
-        rotatingLeft = false;
-        rotatingRight = false;
     }
 
     void TakePlayerInput()
@@ -305,13 +262,11 @@ public class PlayerControlScript : MonoBehaviour {
 
         if (Input.GetMouseButtonUp(0))
         {
-            rotatingLeft = false;
             thrusting = false;
             StopThrusters();
         }
         if (Input.GetMouseButtonUp(1))
         {
-            rotatingRight = false;
             thrusting = false;
             StopThrusters();
         }
