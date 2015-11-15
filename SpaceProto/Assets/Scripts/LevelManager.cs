@@ -173,6 +173,8 @@ public class LevelManager : MonoBehaviour {
 
             go.SetActive(false);
         }
+
+        player.GetComponent<PlayerControlScript>().canMove = true;
     }
 
     public void ViewPlanet(int ID)
@@ -181,6 +183,8 @@ public class LevelManager : MonoBehaviour {
         if (ID == currentLevel) {
 			planets [1] = planets [0];
 		}
+
+        player.GetComponent<PlayerControlScript>().canMove = false;
 
         //DestroyLevel();
         CameraFollowScript script = camera.GetComponent<CameraFollowScript>();
@@ -201,8 +205,9 @@ public class LevelManager : MonoBehaviour {
 
     public void ResetLevel()
     {
-        currentLevel--;
-        NextLevel();
+        camera.transform.position = new Vector3(0, 0, -40);
+        player.transform.position = new Vector3(0, -16.5f, 0);
+        player.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void SwitchToMenu()
