@@ -26,7 +26,8 @@ public class LaserScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            // kill player
+            particleSystems[0].Play();
+            particleSystems[1].Play();
         }
 
         if (other.gameObject.tag == "BigShip")

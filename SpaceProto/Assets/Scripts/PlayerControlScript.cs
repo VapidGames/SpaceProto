@@ -26,6 +26,8 @@ public class PlayerControlScript : MonoBehaviour {
 
     private ParticleSystem[] boosters;
 
+    private ParticleSystem explosion;
+
     private bool rotatingLeft = false;
     private bool rotatingRight = false;
     private bool thrusting = false;
@@ -39,6 +41,7 @@ public class PlayerControlScript : MonoBehaviour {
         alive = true;
         playerBox = GetComponent<Rigidbody2D>();
         boosters = gameObject.GetComponentsInChildren<ParticleSystem>();
+        explosion = GetComponent<ParticleSystem>();
         inAtmosphere = true;
         StopThrusters();
 	}
