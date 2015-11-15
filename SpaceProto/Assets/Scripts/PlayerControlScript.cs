@@ -237,10 +237,12 @@ public class PlayerControlScript : MonoBehaviour {
             else if (Input.GetTouch(0).position.x < Screen.width / 2)
             {
                 RotateLeft();
+                StopThrusters();
             }
             else if (Input.GetTouch(0).position.x > Screen.width / 2)
             {
                 RotateRight();
+                StopThrusters();
             }
         }
     }
@@ -250,25 +252,16 @@ public class PlayerControlScript : MonoBehaviour {
         if (Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
             RotateLeft();
+            StopThrusters();
         }
         else if (Input.GetMouseButton(1) && !Input.GetMouseButton(0))
         {
             RotateRight();
+            StopThrusters();
         }
         else if (Input.GetMouseButton(0) && Input.GetMouseButton(1))
         {
             Thrust();
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            thrusting = false;
-            StopThrusters();
-        }
-        if (Input.GetMouseButtonUp(1))
-        {
-            thrusting = false;
-            StopThrusters();
         }
     }
 }
