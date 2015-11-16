@@ -15,7 +15,7 @@ public class PersistentData : MonoBehaviour {
 
     void Awake()
     {
-        levelUnlockedStatus = new int[5];
+        levelUnlockedStatus = new int[10];
         Load();
 
         DontDestroyOnLoad(this.gameObject);
@@ -36,6 +36,11 @@ public class PersistentData : MonoBehaviour {
         PlayerPrefs.SetInt("level3", levelUnlockedStatus[2]);
         PlayerPrefs.SetInt("level4", levelUnlockedStatus[3]);
         PlayerPrefs.SetInt("level5", levelUnlockedStatus[4]);
+		PlayerPrefs.SetInt("level6", levelUnlockedStatus[5]);
+		PlayerPrefs.SetInt("level7", levelUnlockedStatus[6]);
+		PlayerPrefs.SetInt("level8", levelUnlockedStatus[7]);
+		PlayerPrefs.SetInt("level9", levelUnlockedStatus[8]);
+		PlayerPrefs.SetInt("level10", levelUnlockedStatus[9]);
     }
 
     public void Load()
@@ -45,6 +50,11 @@ public class PersistentData : MonoBehaviour {
         levelUnlockedStatus[2] = PlayerPrefs.GetInt("level3");
         levelUnlockedStatus[3] = PlayerPrefs.GetInt("level4");
         levelUnlockedStatus[4] = PlayerPrefs.GetInt("level5");
+		levelUnlockedStatus[5] = PlayerPrefs.GetInt("level6");
+		levelUnlockedStatus[6] = PlayerPrefs.GetInt("level7");
+		levelUnlockedStatus[7] = PlayerPrefs.GetInt("level8");
+		levelUnlockedStatus[8] = PlayerPrefs.GetInt("level9");
+		levelUnlockedStatus[9] = PlayerPrefs.GetInt("level10");
     }
 
 	public void SwitchTrack(int track)

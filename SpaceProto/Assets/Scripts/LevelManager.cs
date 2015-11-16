@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 
-    public const int levelCount = 5;
+    public const int levelCount = 10;
 
     public LevelScript[] leveldata;
 
@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour {
         go.SetActive(false);
 
         planets[0].GetComponent<PlanetScript>().planetID = currentLevel;
-        planets[0].GetComponent<Renderer>().material = planetMats[currentLevel];
+        planets[0].GetComponent<Renderer>().material = planetMats[currentLevel % 5];
 
         BuildLevel();
 	}
@@ -130,7 +130,7 @@ public class LevelManager : MonoBehaviour {
 
         planets[1] = newPlanet;
         planets[1].GetComponent<PlanetScript>().planetID = currentLevel + 1;
-        planets[1].GetComponent<Renderer>().material = planetMats[currentLevel + 1];
+		planets[1].GetComponent<Renderer>().material = planetMats[(currentLevel + 1) % 5];
 
         camera.transform.position = new Vector3(camera.transform.position.x, 0, camera.transform.position.z);
 
@@ -291,5 +291,50 @@ public class LevelManager : MonoBehaviour {
 		leveldata[4].backgroundPlanetsSize = new Vector3[0];
 		leveldata[4].backgroundPlanetsMaterials = new Material[0];
         leveldata[4].shipBattle = true;
+
+		leveldata[5].mediumAsteroids = 20;
+		leveldata[5].largeAsteroids = 7;
+		leveldata[5].enemyShips = 0;
+		leveldata[5].levelLength = 120;
+		leveldata[5].backgroundPlanets = new Vector3[0];
+		leveldata[5].backgroundPlanetsSize = new Vector3[0];
+		leveldata[5].backgroundPlanetsMaterials = new Material[0];
+		leveldata[5].shipBattle = false;
+		
+		leveldata[6].mediumAsteroids = 23;
+		leveldata[6].largeAsteroids = 8;
+		leveldata[6].enemyShips = 0;
+		leveldata[6].levelLength = 120;
+		leveldata[6].backgroundPlanets = new Vector3[1];
+		leveldata[6].backgroundPlanetsSize = new Vector3[1];
+		leveldata[6].backgroundPlanetsMaterials = new Material[1];
+		leveldata[6].shipBattle = false;
+
+		leveldata[7].mediumAsteroids = 26;
+		leveldata[7].largeAsteroids = 8;
+		leveldata[7].enemyShips = 0;
+		leveldata[7].levelLength = 120;
+		leveldata[7].backgroundPlanets = new Vector3[0];
+		leveldata[7].backgroundPlanetsSize = new Vector3[0];
+		leveldata[7].backgroundPlanetsMaterials = new Material[0];
+		leveldata[7].shipBattle = false;
+		
+		leveldata[8].mediumAsteroids = 29;
+		leveldata[8].largeAsteroids = 9;
+		leveldata[8].enemyShips = 0;
+		leveldata[8].levelLength = 120;
+		leveldata[8].backgroundPlanets = new Vector3[1];
+		leveldata[8].backgroundPlanetsSize = new Vector3[1];
+		leveldata[8].backgroundPlanetsMaterials = new Material[1];
+		leveldata[8].shipBattle = false;
+
+		leveldata[9].mediumAsteroids = 0;
+		leveldata[9].largeAsteroids = 0;
+		leveldata[9].enemyShips = 0;
+		leveldata[9].levelLength = 100;
+		leveldata[9].backgroundPlanets = new Vector3[0];
+		leveldata[9].backgroundPlanetsSize = new Vector3[0];
+		leveldata[9].backgroundPlanetsMaterials = new Material[0];
+		leveldata[9].shipBattle = true;
     }
 }
